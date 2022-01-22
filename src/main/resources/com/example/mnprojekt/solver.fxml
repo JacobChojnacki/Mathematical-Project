@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="600.0" styleClass="gradient-background" stylesheets="file:/C:/Users/ZEPHYRUS/IdeaProjects/MNprojekt/src/main/java/com/example/mnprojekt/resources/styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mnprojekt.solve.SolverController">
+   <top>
+      <HBox alignment="CENTER" prefHeight="60.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="60.0" prefWidth="162.0" text="Equation solver" textFill="WHITE">
+               <font>
+                  <Font name="Times New Roman" size="24.0" />
+               </font>
+            </Label>
+            <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1.0" prefWidth="300.0" styleClass="line-color" stylesheets="file:/C:/Users/ZEPHYRUS/IdeaProjects/MNprojekt/src/main/java/com/example/mnprojekt/resources/styles.css">
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Pane>
+            <ImageView fitHeight="44.0" fitWidth="52.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="40.0" top="8.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@../../../../java/com/example/mnprojekt/img/settings.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+   </top>
+   <left>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="185.0" prefWidth="105.0" spacing="10.0" styleClass="container" stylesheets="file:/C:/Users/ZEPHYRUS/IdeaProjects/MNprojekt/src/main/java/com/example/mnprojekt/resources/styles.css" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
+         <children>
+            <HBox prefHeight="19.0" prefWidth="100.0">
+               <children>
+                  <Label fx:id="usernameLabel" alignment="CENTER" prefHeight="17.0" prefWidth="100.0" text="Username" textAlignment="CENTER" textFill="WHITE" />
+               </children>
+            </HBox>
+            <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" opacity="0.42" prefHeight="1.0" prefWidth="104.0" styleClass="line-color" stylesheets="file:/C:/Users/ZEPHYRUS/IdeaProjects/MNprojekt/src/main/java/com/example/mnprojekt/resources/styles.css">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Pane>
+            <VBox prefHeight="139.0" prefWidth="100.0">
+               <children>
+                  <HBox prefHeight="37.0" prefWidth="100.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="40.0" prefWidth="103.0" text="Methods" textFill="WHITE" underline="true" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="31.0" prefWidth="100.0">
+                     <children>
+                        <RadioButton fx:id="eulerButton" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="58.0" prefWidth="100.0" text="Euler" textFill="WHITE" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="31.0" prefWidth="100.0">
+                     <children>
+                        <RadioButton fx:id="eulerModifiedButton" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="58.0" prefWidth="100.0" text="Euler Modified" textFill="WHITE" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="31.0" prefWidth="100.0">
+                     <children>
+                        <RadioButton fx:id="rungegoButton" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="58.0" prefWidth="100.0" text="Rungego-Kutty" textFill="WHITE" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </left>
+   <bottom>
+      <VBox prefHeight="80.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="600.0" spacing="10.0">
+               <children>
+                  <TextField fx:id="equationTextField" alignment="CENTER" prefHeight="25.0" prefWidth="184.0" promptText="Enter equation" />
+                  <TextField fx:id="tLeftTextField" alignment="CENTER" prefHeight="25.0" prefWidth="64.0" promptText="tLeft" />
+                  <TextField fx:id="tRightTextField" alignment="CENTER" prefHeight="25.0" prefWidth="77.0" promptText="tRight" />
+                  <TextField alignment="CENTER" prefHeight="25.0" prefWidth="48.0" promptText="x0" fx:id="x0TextField" />
+                  <TextField fx:id="stepTextField" alignment="CENTER" prefHeight="25.0" prefWidth="59.0" promptText="Step" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="0.0" prefWidth="600.0" spacing="20.0">
+               <children>
+                  <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#confirmButtonAction" text="Confirm" />
+                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelButtonAction" text="Cancel" />
+                  <Button fx:id="safeToFileButton" mnemonicParsing="false" onAction="#saveToFileAction" text="Save" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </bottom>
+   <center>
+      <LineChart fx:id="graph" prefHeight="260.0" prefWidth="444.0" BorderPane.alignment="CENTER">
+        <xAxis>
+          <CategoryAxis fx:id="timeAxis" label="time" side="BOTTOM" tickLabelFill="WHITE" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis label="x" prefHeight="219.0" prefWidth="43.0" side="LEFT" tickLabelFill="WHITE" fx:id="xAxis" />
+        </yAxis>
+      </LineChart>
+   </center>
+   <right>
+      <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="105.0" prefWidth="78.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="openTableButton" mnemonicParsing="false" onAction="#openTableButtonAction" text="Open table" />
+         </children>
+         <padding>
+            <Insets right="2.0" />
+         </padding>
+      </HBox>
+   </right>
+</BorderPane>
