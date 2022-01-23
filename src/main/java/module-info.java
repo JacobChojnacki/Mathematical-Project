@@ -2,7 +2,7 @@ module com.example.mnprojekt {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
-    requires javafx.graphics;
+    requires java.base;
     requires mysql.connector.java;
 
     exports com.example.mnprojekt;
@@ -11,6 +11,7 @@ module com.example.mnprojekt {
     opens com.example.mnprojekt.register;
     opens com.example.mnprojekt.solve;
     opens com.example.mnprojekt.table;
+    opens com.example.mnprojekt.methods;
 }
 //
 // requires javafx.controls;

@@ -16,17 +16,20 @@ import com.example.mnprojekt.methods.inter.ODEStep;
 import com.example.mnprojekt.methods.methodsChoice.EulerModified;
 import com.example.mnprojekt.methods.methodsChoice.RungegoKutty;
 import com.example.mnprojekt.methods.save.SaveToFileHandler;
+import com.example.mnprojekt.table.TableController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -135,10 +138,12 @@ public class SolverController {
 
     public void openTableButtonAction(ActionEvent actionEvent) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("table.fxml"));
+            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("table.fxml"));
+            Parent root = loader.load();
+            TableController table = loader.getController();
+            table.setList(list);
             Stage stage = new Stage();
-            stage.initStyle(StageStyle.DECORATED);
-            Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+            Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
         } catch (Exception error) {
@@ -174,8 +179,9 @@ public class SolverController {
                 consolHandler);
 
         integrator.integrate(step);
-        consolHandler.print2Columns();
         list.addAll(PointTX.getPointsTX(consolHandler.gettList(), consolHandler.getxList()));
+        System.out.println(list);
+        consolHandler.print2Columns();
         
     }
 

@@ -40,8 +40,13 @@ public class ConsolHandler implements StepHandler {
     }
 
     public void print2Columns() {
+
         for (int i = 0; i < xList.size(); i++) {
             System.out.println(tList.get(i) + "\t" + xList.get(i));
         }
+    }
+    private void clearData(){
+        xList.clear();
+        tList.clear();
     }
 }
