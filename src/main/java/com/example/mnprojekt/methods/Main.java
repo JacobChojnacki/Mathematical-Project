@@ -13,6 +13,12 @@ public class Main {
         ODEIntegrator integrator1 = new ODEIntegrator(0, 4, 1, ode1, new Euler(),
                 consolHandler);
 
+        ODEEquation ode2 = new ODEEquation() {
+            @Override
+            public double f(double x, double t) {
+                return -2 * t * t * t + 12 * t * t - 20 * t + 8.5;
+            }
+        };
 
         integrator1.integrate(0.5);
 
