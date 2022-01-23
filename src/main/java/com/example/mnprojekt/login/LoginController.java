@@ -3,9 +3,11 @@ package com.example.mnprojekt.login;
 
 import com.example.mnprojekt.Connector.DatabaseConnection;
 import com.example.mnprojekt.MainApplication;
+import com.example.mnprojekt.solve.SolverController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,7 +15,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -123,10 +124,11 @@ public class LoginController {
     public void createSolveStage(){
         try{
             FXMLLoader fxmlLoader =  new FXMLLoader(MainApplication.class.getResource("solver.fxml"));
+            Parent root = fxmlLoader.load();
             Stage stage = new Stage();
-            stage.initStyle(StageStyle.DECORATED);
-            Scene scene = new Scene(fxmlLoader.load(), 600, 400);
-            stage.setScene(scene);
+            SolverController solve = fxmlLoader.getController();
+            solve.setUsername(usernameTextField.getText());
+            stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

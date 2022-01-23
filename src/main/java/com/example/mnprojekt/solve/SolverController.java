@@ -120,6 +120,9 @@ public class SolverController {
         xAxis.setLabel("f(t)");
 
     }
+    public void setUsername(String labelText) {
+        usernameLabel.setText(labelText);
+    }
 
     public void openTableButtonAction(ActionEvent actionEvent) {
         try {
