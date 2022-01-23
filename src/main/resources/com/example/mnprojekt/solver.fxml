@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
@@ -104,6 +103,7 @@
                   <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#confirmButtonAction" text="Confirm" />
                   <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelButtonAction" text="Cancel" />
                   <Button fx:id="safeToFileButton" mnemonicParsing="false" onAction="#saveToFileAction" text="Save" />
+                  <Button fx:id="resetButton" mnemonicParsing="false" onAction="#resetButtonAction" text="Reset" />
                </children>
             </HBox>
          </children>
@@ -112,7 +112,7 @@
    <center>
       <LineChart fx:id="graph" prefHeight="260.0" prefWidth="444.0" BorderPane.alignment="CENTER">
         <xAxis>
-          <CategoryAxis fx:id="timeAxis" label="time" side="BOTTOM" tickLabelFill="WHITE" />
+          <NumberAxis fx:id="timeAxis" label="time" side="BOTTOM" tickLabelFill="WHITE" />
         </xAxis>
         <yAxis>
           <NumberAxis label="x" prefHeight="219.0" prefWidth="43.0" side="LEFT" tickLabelFill="WHITE" fx:id="xAxis" />

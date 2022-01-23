@@ -1,12 +1,10 @@
 package com.example.mnprojekt.solve;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.example.mnprojekt.MainApplication;
-import com.example.mnprojekt.graph.Grapher;
 import com.example.mnprojekt.methods.ConsolHandler;
 import com.example.mnprojekt.methods.ODEIntegrator;
 import com.example.mnprojekt.methods.PointTX;
@@ -15,7 +13,6 @@ import com.example.mnprojekt.methods.methodsChoice.Euler;
 import com.example.mnprojekt.methods.inter.ODEStep;
 import com.example.mnprojekt.methods.methodsChoice.EulerModified;
 import com.example.mnprojekt.methods.methodsChoice.RungegoKutty;
-import com.example.mnprojekt.methods.save.SaveToFileHandler;
 import com.example.mnprojekt.table.TableController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,25 +21,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+
 
 public class SolverController {
 
     protected ObservableList<PointTX> list = FXCollections.observableArrayList();
-
-    public ObservableList<PointTX> getList() {
-        return list;
-    }
-
-    FileChooser fileChooser = new FileChooser();
 
     private ODEStep method;
     @FXML
@@ -67,7 +55,7 @@ public class SolverController {
     private RadioButton eulerModifiedButton;
 
     @FXML
-    private LineChart<?, ?> graph;
+    private LineChart<Double, Double> graph;
 
     @FXML
     private Button openTableButton;
@@ -85,7 +73,7 @@ public class SolverController {
     private TextField tRightTextField;
 
     @FXML
-    private CategoryAxis timeAxis;
+    private NumberAxis timeAxis;
 
     @FXML
     private Label usernameLabel;
@@ -98,12 +86,6 @@ public class SolverController {
 
     @FXML
     private TextField stepTextField;
-
-    private Grapher grapher;
-
-    public ODEStep getMethod() {
-        return method;
-    }
 
     public void setMethod(ODEStep method) {
         this.method = method;
@@ -133,6 +115,8 @@ public class SolverController {
         eulerButton.setToggleGroup(radioGroup);
         eulerModifiedButton.setToggleGroup(radioGroup);
         rungegoButton.setToggleGroup(radioGroup);
+        timeAxis.setLabel("Time");
+        xAxis.setLabel("f(t)");
 
     }
 
@@ -160,7 +144,7 @@ public class SolverController {
     public void confirmButtonAction(ActionEvent actionEvent) throws IOException {
 //        ODEEquation odeEquation = (x, t) -> Double.parseDouble(equationTextField.getText().toString());
         ODEEquation odeEquation = (x, t) -> -2 * t * t * t + 12 * t * t - 20 * t + 8.5;
-
+        consolHandler.clearData();
         System.out.println(odeEquation);
         double a = Double.parseDouble(tLeftTextField.getText().toString());
         double b = Double.parseDouble(tRightTextField.getText().toString());
@@ -179,18 +163,20 @@ public class SolverController {
                 consolHandler);
 
         integrator.integrate(step);
+        list.clear();
         list.addAll(PointTX.getPointsTX(consolHandler.gettList(), consolHandler.getxList()));
-        System.out.println(list);
-        consolHandler.print2Columns();
-        
-    }
-
-    @FXML
-    void saveToFileAction(ActionEvent e) throws IOException {
-        File file = fileChooser.showSaveDialog(new Stage());
-        SaveToFileHandler save = new SaveToFileHandler();
-        if(file != null){
-
+        XYChart.Series<Double,Double> series = new XYChart.Series<>();
+        for (int i = 0; i < consolHandler.getxList().size(); i++) {
+            series.getData().add(new XYChart.Data<Double,Double>(consolHandler.getTValue(i),
+                                                    consolHandler.getXValue(i)));
         }
+        graph.getData().add(series);
+
+    }
+    public void saveToFileAction(ActionEvent e ){
+
+    }
+    public void resetButtonAction(ActionEvent e){
+
     }
 }

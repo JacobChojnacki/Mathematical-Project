@@ -39,6 +39,7 @@ public class TableController {
         assert table != null : "fx:id=\"table\" was not injected: check your FXML file 'table.fxml'.";
         assert time != null : "fx:id=\"time\" was not injected: check your FXML file 'table.fxml'.";
         assert x != null : "fx:id=\"x\" was not injected: check your FXML file 'table.fxml'.";
+        list.clear();
         time.setCellValueFactory(new PropertyValueFactory<PointTX, Double>("time"));
         x.setCellValueFactory(new PropertyValueFactory<PointTX, Double>("x"));
     }

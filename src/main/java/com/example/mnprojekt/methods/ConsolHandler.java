@@ -45,7 +45,7 @@ public class ConsolHandler implements StepHandler {
             System.out.println(tList.get(i) + "\t" + xList.get(i));
         }
     }
-    private void clearData(){
+    public void clearData(){
         xList.clear();
         tList.clear();
     }
