@@ -2,6 +2,7 @@ package com.example.mnprojekt.solve;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Collections;
 import java.util.ResourceBundle;
 
 import com.example.mnprojekt.MainApplication;
@@ -177,6 +178,6 @@ public class SolverController {
 
     }
     public void resetButtonAction(ActionEvent e){
-
+        Collections.singleton(graph.getData().setAll());
     }
 }
