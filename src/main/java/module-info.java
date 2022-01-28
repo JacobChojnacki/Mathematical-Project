@@ -13,14 +13,3 @@ module com.example.mnprojekt {
     opens com.example.mnprojekt.table;
     opens com.example.mnprojekt.methods;
 }
-//
-// requires javafx.controls;
-//         requires javafx.fxml;
-//         requires java.sql;
-//         requires javafx.graphics;
-//         requires mysql.connector.java;
-//
-//         opens com.example.EquationSolver;
-//         opens com.example.EquationSolver.login;
-//         opens com.example.EquationSolver.register;
-//         opens com.example.EquationSolver.Connector;

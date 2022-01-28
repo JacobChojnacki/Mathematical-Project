@@ -1,10 +1,12 @@
 package com.example.mnprojekt.solve;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.ResourceBundle;
-
 import com.example.mnprojekt.MainApplication;
 import com.example.mnprojekt.methods.ConsolHandler;
 import com.example.mnprojekt.methods.ODEIntegrator;
@@ -26,8 +28,8 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 
 public class SolverController {
 
@@ -94,6 +96,9 @@ public class SolverController {
 
     private ConsolHandler consolHandler = new ConsolHandler();
 
+    FileChooser fileChooser = new FileChooser();
+
+
     @FXML
     void initialize() {
         assert cancelButton != null : "fx:id=\"cancelButton\" was not injected: check your FXML file 'solver.fxml'.";
@@ -118,6 +123,8 @@ public class SolverController {
         rungegoButton.setToggleGroup(radioGroup);
         timeAxis.setLabel("Time");
         xAxis.setLabel("f(t)");
+        fileChooser.setInitialDirectory(new File("C:\\temp"));
+
 
     }
     public void setUsername(String labelText) {
@@ -149,11 +156,11 @@ public class SolverController {
 //        ODEEquation odeEquation = (x, t) -> Double.parseDouble(equationTextField.getText().toString());
         ODEEquation odeEquation = (x, t) -> -2 * t * t * t + 12 * t * t - 20 * t + 8.5;
         consolHandler.clearData();
-        System.out.println(odeEquation);
         double a = Double.parseDouble(tLeftTextField.getText().toString());
         double b = Double.parseDouble(tRightTextField.getText().toString());
         double x0 = Double.parseDouble(x0TextField.getText().toString());
         double step = Double.parseDouble(stepTextField.getText().toString());
+        System.out.println(equationTextField.getText().toString());
 
         if (eulerButton.isSelected()) {
             setMethod(new Euler());
@@ -178,9 +185,35 @@ public class SolverController {
 
     }
     public void saveToFileAction(ActionEvent e ){
-
+       Stage stage = new Stage();
+       FileChooser fileChooser = new FileChooser();
+       fileChooser.setTitle("Saving Data");
+       fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+       if(!list.isEmpty()){
+           File file = fileChooser.showSaveDialog(stage);
+           if(file != null){
+               saveFile(list,file);
+           }
+       }
     }
     public void resetButtonAction(ActionEvent e){
         Collections.singleton(graph.getData().setAll());
+    }
+
+
+    public void saveFile(ObservableList<PointTX> observableList, File file) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            for(PointTX pointTX : observableList) {
+                writer.write(String.valueOf(pointTX.getTime()));
+                writer.write("\t");
+                writer.write(String.valueOf(pointTX.getX()));
+                writer.newLine();
+            }
+            System.out.println(observableList.toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
