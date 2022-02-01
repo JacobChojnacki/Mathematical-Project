@@ -3,7 +3,7 @@ package com.example.mnprojekt.methods;
 import java.util.ArrayList;
 
 public class PointTX {
-    private double time;
+    private final double time;
     private double x;
 
     public PointTX(double time, double x) {
@@ -13,10 +13,6 @@ public class PointTX {
 
     public double getTime() {
         return time;
-    }
-
-    public void setTime(double time) {
-        this.time = time;
     }
 
     public double getX() {

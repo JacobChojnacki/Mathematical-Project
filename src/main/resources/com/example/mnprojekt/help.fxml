@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="gradient-background" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <VBox prefHeight="106.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" prefHeight="105.0" prefWidth="606.0" text="Equation solver - help section" textFill="WHITE">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <Pane prefHeight="1.0" prefWidth="600.0" styleClass="line-color" stylesheets="@styles.css" />
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextArea editable="false" prefHeight="297.0" prefWidth="587.0" text="                                                    Witamy w programie equation solver.&#10;Skoro kliknąłeś ten guzik to prawdopodobnie potrzebujesz pomocy. Nic się nie bój, od tego tutaj jestem. &#10;&#10;W lewym rogu pod swoją nazwą użytkownika masz możliwość wybrania jednej z metod do rozwiązania&#10;Twojego równania. &#10;Na samym dole, w jedynych oknach w które możesz coś wpisać, po kolei podajesz parametry &#10;twojego równania np.&#10;                            Enter equation = 2*t*t*t +12 * t * t - 24 * t &#10;                            tLeft (lewy koniec przedziału) = 0&#10;                            tRight (prawy koniec przedziału) = 4&#10;                            x0 (poczatek) = 1&#10;                            Step (krok całkowania) = 0.5 &#10;Uwaga!!! Piszesz same liczby i ewentualnie jakas literke(tylko w Enter equation)!!!!!!&#10;Dolne przyciski służą do zaakceptowania Twoich parametrów, wyjścia z okna, zapisania pliku(txt,csv,inny) i &#10;w końcu do zresetowania wykresu który jest na środku, a który narysuje wykres Twojej funkcji po kliknięciu&#10;confirm. Prawy przycisk Open Table otwiera nowe okno z danymi do najnowszego wykresu. POWODZENIA!&#10;" />
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

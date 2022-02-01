@@ -1,5 +1,5 @@
 .gradient-background{
-    -fx-background-color: linear-gradient(from 10% 10% to 100% 100%, #0100ff,#01ffff);
+    -fx-background-color: linear-gradient(from 10% 40% to 100% 100%, #0100ff,#01ffff);
 }
 
 .line-color{
@@ -22,11 +22,11 @@
     -fx-background-radius: 25;
 }
 
-.closeButton{
-    -fx-background-color: #0b3048;
+.button{
+    -fx-background-color: #ffffff;
 }
 
-.closeButton:hover{
+.button:hover{
     -fx-background-color: #e94e50;
 }
 .chart{

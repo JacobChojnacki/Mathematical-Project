@@ -4,6 +4,7 @@ module com.example.mnprojekt {
     requires java.sql;
     requires java.base;
     requires mysql.connector.java;
+    requires exp4j;
 
     exports com.example.mnprojekt;
     opens com.example.mnprojekt;

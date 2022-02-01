@@ -21,7 +21,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-
+/**
+ * klasa obslugujaca okno logowania
+ */
 public class LoginController {
 
     @FXML
@@ -52,12 +54,11 @@ public class LoginController {
 
     /**
      * Zwraca boolean w zależnie od tego czy udalo sie zalogowac czy nie
-     * @param e - przechwytywane zdarzenie polegajace na kliknieciu przycisku Login
      */
-    public void LoginButtonOnAction(ActionEvent e) {
+    public void LoginButtonOnAction(ActionEvent event) {
 
 
-        if (usernameTextField.getText().isBlank() == false && passwordPasswordField.getText().isBlank() == false) {
+        if (!usernameTextField.getText().isBlank() && !passwordPasswordField.getText().isBlank()) {
             setUsername(usernameTextField.getText());
             validateLogin();
             Stage stage = (Stage) loginButton.getScene().getWindow();
@@ -69,16 +70,20 @@ public class LoginController {
 
     /**
      * Metoda zamykajaca nasza aplikacje
-     * @param e - przechwytywane zdarzenie polegajace na kliknieciu przycisku cancel
      */
-    public void cancelButtonAction(ActionEvent e) {
+    public void cancelButtonAction(ActionEvent event) {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
 
-    public void registerButtonAction(ActionEvent e){
+    /**
+     * Metoda pozwalajaca uzytkownikowi na zalogowanie sie
+     */
+
+    public void registerButtonAction(ActionEvent event){
         createAccountStage();
     }
+
     /**
      * Metoda weryfikujaca poprawnosc danych logowania
      */
@@ -121,6 +126,10 @@ public class LoginController {
             e.getCause();
         }
     }
+
+    /**
+     * Metoda sluzaca do otwierania sceny do rozwiazywania rownan
+     */
     public void createSolveStage(){
         try{
             FXMLLoader fxmlLoader =  new FXMLLoader(MainApplication.class.getResource("solver.fxml"));
@@ -129,6 +138,7 @@ public class LoginController {
             SolverController solve = fxmlLoader.getController();
             solve.setUsername(usernameTextField.getText());
             stage.setScene(new Scene(root));
+            stage.setMaximized(true);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

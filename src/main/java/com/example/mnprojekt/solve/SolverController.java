@@ -1,19 +1,12 @@
 package com.example.mnprojekt.solve;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.net.URL;
-import java.util.Collections;
-import java.util.ResourceBundle;
 import com.example.mnprojekt.MainApplication;
+import com.example.mnprojekt.methods.CalculateHandler;
 import com.example.mnprojekt.methods.ConsolHandler;
 import com.example.mnprojekt.methods.ODEIntegrator;
 import com.example.mnprojekt.methods.PointTX;
-import com.example.mnprojekt.methods.inter.ODEEquation;
-import com.example.mnprojekt.methods.methodsChoice.Euler;
 import com.example.mnprojekt.methods.inter.ODEStep;
+import com.example.mnprojekt.methods.methodsChoice.Euler;
 import com.example.mnprojekt.methods.methodsChoice.EulerModified;
 import com.example.mnprojekt.methods.methodsChoice.RungegoKutty;
 import com.example.mnprojekt.table.TableController;
@@ -31,16 +24,17 @@ import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Collections;
+
 public class SolverController {
 
     protected ObservableList<PointTX> list = FXCollections.observableArrayList();
 
     private ODEStep method;
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private Button cancelButton;
@@ -94,10 +88,9 @@ public class SolverController {
         this.method = method;
     }
 
-    private ConsolHandler consolHandler = new ConsolHandler();
+    private final ConsolHandler consolHandler = new ConsolHandler();
 
     FileChooser fileChooser = new FileChooser();
-
 
     @FXML
     void initialize() {
@@ -124,14 +117,12 @@ public class SolverController {
         timeAxis.setLabel("Time");
         xAxis.setLabel("f(t)");
         fileChooser.setInitialDirectory(new File("C:\\temp"));
-
-
     }
     public void setUsername(String labelText) {
         usernameLabel.setText(labelText);
     }
 
-    public void openTableButtonAction(ActionEvent actionEvent) {
+    public void openTableButtonAction(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("table.fxml"));
             Parent root = loader.load();
@@ -147,59 +138,94 @@ public class SolverController {
         }
     }
 
-    public void cancelButtonAction(ActionEvent actionEvent) {
+    public void cancelButtonAction(ActionEvent event) {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
 
-    public void confirmButtonAction(ActionEvent actionEvent) throws IOException {
-//        ODEEquation odeEquation = (x, t) -> Double.parseDouble(equationTextField.getText().toString());
-        ODEEquation odeEquation = (x, t) -> -2 * t * t * t + 12 * t * t - 20 * t + 8.5;
-        consolHandler.clearData();
-        double a = Double.parseDouble(tLeftTextField.getText().toString());
-        double b = Double.parseDouble(tRightTextField.getText().toString());
-        double x0 = Double.parseDouble(x0TextField.getText().toString());
-        double step = Double.parseDouble(stepTextField.getText().toString());
-        System.out.println(equationTextField.getText().toString());
+    public void confirmButtonAction(ActionEvent event) {
+        try{
 
-        if (eulerButton.isSelected()) {
-            setMethod(new Euler());
-        } else if (eulerModifiedButton.isSelected()) {
-            setMethod(new EulerModified());
-        } else {
-            setMethod(new RungegoKutty());
+            consolHandler.clearData();
+
+            CalculateHandler calculateHandler = new CalculateHandler(equationTextField.getText());
+            double a = Double.parseDouble(tLeftTextField.getText());
+            double b = Double.parseDouble(tRightTextField.getText());
+            double x0 = Double.parseDouble(x0TextField.getText());
+            double step = Double.parseDouble(stepTextField.getText());
+            System.out.println(equationTextField.getText());
+
+            if (eulerButton.isSelected()) {
+                setMethod(new Euler());
+            } else if (eulerModifiedButton.isSelected()) {
+                setMethod(new EulerModified());
+            } else if (rungegoButton.isSelected()){
+                setMethod(new RungegoKutty());
+            } else {
+               Alert alert = new Alert(Alert.AlertType.WARNING);
+               alert.setTitle("Method error");
+               alert.setContentText("Please choose one of the three methods on the left side");
+               alert.showAndWait();
+            }
+
+            ODEIntegrator integrator = new ODEIntegrator(a, b, x0, calculateHandler, method,
+                    consolHandler);
+
+            integrator.integrate(step);
+            list.clear();
+            list.addAll(PointTX.getPointsTX(consolHandler.gettList(), consolHandler.getxList()));
+            XYChart.Series<Double,Double> series = new XYChart.Series<>();
+            for (int i = 0; i < consolHandler.getxList().size(); i++) {
+                series.getData().add(new XYChart.Data<>(consolHandler.getTValue(i),
+                        consolHandler.getXValue(i)));
+            }
+            series.setName("x0 = " + x0 + ", step = " +step);
+            graph.getData().add(series);}
+        catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Expression alert");
+            alert.setContentText("Your expression cannot be empty or you enter a valid data.");
+            alert.showAndWait();
         }
-
-        ODEIntegrator integrator = new ODEIntegrator(a, b, x0, odeEquation, method,
-                consolHandler);
-
-        integrator.integrate(step);
-        list.clear();
-        list.addAll(PointTX.getPointsTX(consolHandler.gettList(), consolHandler.getxList()));
-        XYChart.Series<Double,Double> series = new XYChart.Series<>();
-        for (int i = 0; i < consolHandler.getxList().size(); i++) {
-            series.getData().add(new XYChart.Data<Double,Double>(consolHandler.getTValue(i),
-                                                    consolHandler.getXValue(i)));
-        }
-        graph.getData().add(series);
 
     }
-    public void saveToFileAction(ActionEvent e ){
+    public void saveToFileAction(ActionEvent event){
        Stage stage = new Stage();
        FileChooser fileChooser = new FileChooser();
        fileChooser.setTitle("Saving Data");
        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+       fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("txt_file","*.txt"),
+               new FileChooser.ExtensionFilter("csv_file","*.csv"));
        if(!list.isEmpty()){
            File file = fileChooser.showSaveDialog(stage);
            if(file != null){
                saveFile(list,file);
            }
        }
+       else{
+           Alert alert = new Alert(Alert.AlertType.WARNING);
+           alert.setTitle("Saving error");
+           alert.setContentText("There is no data to save.");
+           alert.showAndWait();
+       }
     }
-    public void resetButtonAction(ActionEvent e){
+    public void resetButtonAction(ActionEvent event){
         Collections.singleton(graph.getData().setAll());
     }
 
+    public void helpButtonClick(ActionEvent event){
+        try {
+            FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("help.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception error) {
+            error.printStackTrace();
+            error.getCause();
+        }
+    }
 
     public void saveFile(ObservableList<PointTX> observableList, File file) {
         try {
@@ -210,7 +236,7 @@ public class SolverController {
                 writer.write(String.valueOf(pointTX.getX()));
                 writer.newLine();
             }
-            System.out.println(observableList.toString());
+            System.out.println(observableList);
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();

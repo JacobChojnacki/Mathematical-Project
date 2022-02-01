@@ -1,8 +1,5 @@
 package com.example.mnprojekt.table;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import com.example.mnprojekt.methods.PointTX;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,13 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class TableController {
 
-    private ObservableList<PointTX> list= FXCollections.observableArrayList();
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
+    private final ObservableList<PointTX> list= FXCollections.observableArrayList();
 
     @FXML
     private TableView<PointTX> table;
@@ -40,8 +31,8 @@ public class TableController {
         assert time != null : "fx:id=\"time\" was not injected: check your FXML file 'table.fxml'.";
         assert x != null : "fx:id=\"x\" was not injected: check your FXML file 'table.fxml'.";
         list.clear();
-        time.setCellValueFactory(new PropertyValueFactory<PointTX, Double>("time"));
-        x.setCellValueFactory(new PropertyValueFactory<PointTX, Double>("x"));
+        time.setCellValueFactory(new PropertyValueFactory<>("time"));
+        x.setCellValueFactory(new PropertyValueFactory<>("x"));
     }
 
 }

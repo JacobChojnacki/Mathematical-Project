@@ -4,9 +4,16 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Klasa odpowiedzialna za laczenie sie z baza danych
+ */
 public class DatabaseConnection {
     public Connection databaseLink;
 
+    /**
+     * Metoda sluzaca do uzyskiwania polaczenia dla konkretnego uzytkownika
+     * @return
+     */
     public Connection getConnection(){
         String databaseName = "useraccounts";
         String databaseUser = "root";

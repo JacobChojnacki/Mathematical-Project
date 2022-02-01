@@ -3,14 +3,16 @@ package com.example.mnprojekt.methods;
 import com.example.mnprojekt.methods.inter.ODEEquation;
 import com.example.mnprojekt.methods.inter.ODEStep;
 import com.example.mnprojekt.methods.inter.StepHandler;
+import de.congrace.exp4j.UnknownFunctionException;
+import de.congrace.exp4j.UnparsableExpressionException;
 
 public class ODEIntegrator {
-    private double tLeft;
-    private double tRight;
-    private double x0;
-    private ODEEquation ode;
-    private ODEStep method;
-    private StepHandler stepHandler;
+    private final double tLeft;
+    private final double tRight;
+    private final double x0;
+    private final ODEEquation ode;
+    private final ODEStep method;
+    private final StepHandler stepHandler;
 
     public ODEIntegrator(double tLeft, double tRight, double x0, ODEEquation ode, ODEStep method,
                          StepHandler stepHandler) {
@@ -22,7 +24,7 @@ public class ODEIntegrator {
         this.stepHandler = stepHandler;
     }
 
-    public void integrate(double h) {
+    public void integrate(double h) throws UnparsableExpressionException, UnknownFunctionException {
         double x = x0;
         double t;
         for (t = tLeft; t < tRight; t += h) {

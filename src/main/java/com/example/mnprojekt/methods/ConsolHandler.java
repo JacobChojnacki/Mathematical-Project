@@ -5,8 +5,8 @@ import com.example.mnprojekt.methods.inter.StepHandler;
 import java.util.ArrayList;
 
 public class ConsolHandler implements StepHandler {
-    private ArrayList<Double> xList = new ArrayList<>();
-    private ArrayList<Double> tList = new ArrayList<>();
+    private final ArrayList<Double> xList = new ArrayList<>();
+    private final ArrayList<Double> tList = new ArrayList<>();
 
     public double getXValue(int i){
         return xList.get(i);
@@ -23,9 +23,6 @@ public class ConsolHandler implements StepHandler {
     public double getTValue(int i){
         return tList.get(i);
     }
-    public int getNumberOfPoints(){
-        return xList.size();
-    }
 
     @Override
     public void update(double x, double t) {
@@ -33,12 +30,6 @@ public class ConsolHandler implements StepHandler {
         tList.add(t);
     }
 
-    public void print2Columns() {
-
-        for (int i = 0; i < xList.size(); i++) {
-            System.out.println(tList.get(i) + "\t" + xList.get(i));
-        }
-    }
     public void clearData(){
         xList.clear();
         tList.clear();

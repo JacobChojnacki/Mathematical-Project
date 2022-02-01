@@ -32,11 +32,11 @@ public class RegisterController{
     @FXML
     private Label registerMessageLabel;
 
-    public void cancelButtonAction(ActionEvent e) {
+    public void cancelButtonAction(ActionEvent event) {
         Stage stage = (Stage) rCancelButton.getScene().getWindow();
         stage.close();
     }
-    public void registerButtonAction(ActionEvent e) {
+    public void registerButtonAction(ActionEvent event) {
         registerInterface();
     }
 
@@ -56,7 +56,6 @@ public class RegisterController{
         try {
             Statement statement = connectDB.createStatement();
             statement.executeUpdate(insertToRegister);
-
             registerMessageLabel.setText("User has been registered");
         }catch (Exception e){
             e.printStackTrace();
